@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/role">
+        <file>photo.png</file>
+    </qresource>
+</RCC>

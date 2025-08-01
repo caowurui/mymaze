@@ -1,30 +1,15 @@
-#include<raylib.h>
+#include <mainwindow.h>
 
-#define TITLE "迷宫"
-#define fps 20
-#define BackgroundColor RAYWHITE
-#define WallColor GRAY
-#define Maze_x 20
-#define Maze_y 15
-#define Wall_Width 6
-#define Photo_Width 20
-const char Photo_Name[]="photo.png";
+#include <QApplication>
 
-#define m_x Maze_x
-#define m_y Maze_y
-#define w_w (Wall_Width/2.0)
-#define p_w (Photo_Width+Wall_Width)
-#define Win_x (p_w*(Maze_x+2))
-#define Win_y (p_w*(Maze_y+2))
-const int step=(p_w);
-
-struct MazeNode{
-    bool dire[4];
-    bool vis;
-    MazeNode(){clear();}
-    void clear(){vis=false;for(int i=0;i<4;i++)dire[i]=0;}
-};
-MazeNode maze[m_y][m_x];
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    return a.exec();
+}
+/*
 struct Photo{
     int y,x;
     int nx,ny;
@@ -87,9 +72,6 @@ struct Photo{
 };
 Photo role;
 
-void GenerateMaze();
-void shuttle_dire(int a[4]);
-void dfs(int y,int x);
 void DrawMaze();
 
 int main(){
@@ -98,7 +80,7 @@ int main(){
     SetTargetFPS(fps);
 
     GenerateMaze();
-    role.LoadPhoto(Photo_Name);
+    role.LoadPhoto("    photo.png    ");
 
     while(!WindowShouldClose())
     {
@@ -116,63 +98,11 @@ int main(){
 }
 
 void GenerateMaze(){
-    for(int i=0;i<m_y;i++)for(int j=0;j<m_x;j++)maze[i][j].clear();
-    maze[0][0].vis=true;
-    dfs(0,0);
 }
 
 void shuttle_dire(int a[4]){
-    int w;
-    w=GetRandomValue(0,3);
-    a[w]=0;
-    w=GetRandomValue(0,3);
-    while(a[w]!=0){w++;}
-    a[w%4]=1;
-    w=GetRandomValue(0,3);
-    while(a[w]!=0){w++;}
-    a[w%4]=2;
-    w=GetRandomValue(0,3);
-    while(a[w]!=0){w++;}
-    a[w%4]=3;
 }
 
-void dfs(int y,int x){
-    int a[4]={0};
-    shuttle_dire(a);
-    maze[y][x].vis=true;
-    for(int i=0;i<4;i++){
-        switch(a[i]){
-            case 0:
-                if(y>=1&&!maze[y-1][x].vis){
-                    maze[y][x].dire[0]=true;
-                    maze[y-1][x].dire[1]=true;
-                    dfs(y-1,x);
-                }
-                break;
-            case 1:
-                if(y<=m_y-2&&!maze[y+1][x].vis){
-                    maze[y][x].dire[1]=true;
-                    maze[y+1][x].dire[0]=true;
-                    dfs(y+1,x);
-                }
-                break;
-            case 2:
-                if(x>=1&&!maze[y][x-1].vis){
-                    maze[y][x].dire[2]=true;
-                    maze[y][x-1].dire[3]=true;
-                    dfs(y,x-1);
-                }
-                break;
-            case 3:
-                if(x<=m_x-2&&!maze[y][x+1].vis){
-                    maze[y][x].dire[3]=true;
-                    maze[y][x+1].dire[2]=true;
-                    dfs(y,x+1);
-                }
-                break;
-        }
-    }
-}
 
 void DrawMaze(){
     for(int i=0;i<m_y;i++)
@@ -195,3 +125,4 @@ void DrawMaze(){
     DrawRectangle(p_w*(m_x+1),p_w-w_w,w_w,p_w*m_y+2*w_w,WallColor);
     DrawRectangle(p_w-w_w,p_w*(m_y+1),p_w*m_x+2*w_w,w_w,WallColor);
 }
+*/

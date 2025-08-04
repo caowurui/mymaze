@@ -8,10 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->setGeometry(0,0,Win_x,Win_y);
 
-    timer = new QTimer(parent);
-    //connect(timer,SIGNAL(timeout()),this,SLOT(on_timer()));
-    //timer->start(1000.0/fps);
-
     rand=new QRandomGenerator();
     GenerateMaze();
 }
@@ -19,13 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete timer;
     delete rand;
-}
-
-void MainWindow::on_timer()
-{
-
 }
 
 void MainWindow::GenerateMaze()
@@ -34,6 +24,7 @@ void MainWindow::GenerateMaze()
     for(int i=0;i<m_y;i++)for(int j=0;j<m_x;j++)maze[i][j].clear();
     maze[0][0].vis=true;
     dfs(0,0);
+    UpdateMaze();
 }
 
 void MainWindow::shuttle_dire(int a[4])
@@ -92,6 +83,15 @@ void MainWindow::dfs(int y,int x){
     }
 }
 
+void MainWindow::UpdateMaze()
+{
+    for (int i=0;i<m_x;i++) {
+        for(int j=0;j<m_y;j++) {
+            role.maze[j][i]=maze[j][i];
+        }
+    }
+}
+
 void MainWindow::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
@@ -116,7 +116,16 @@ void MainWindow::paintEvent(QPaintEvent *)
     p.fillRect(p_w-w_w,p_w-w_w,w_w,p_w*m_y+2*w_w,WallColor);
     p.fillRect(p_w*(m_x+1),p_w-w_w,w_w,p_w*m_y+2*w_w,WallColor);
     p.fillRect(p_w-w_w,p_w*(m_y+1),p_w*m_x+2*w_w,w_w,WallColor);
+
+    role.DrawPhoto(&p);
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    role.move(event->key());
+    update();
+}
+
 
 
 

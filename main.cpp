@@ -9,24 +9,3 @@ int main(int argc, char *argv[])
     w.show();
     return a.exec();
 }
-/*
-
-
-int main(){
-
-    role.LoadPhoto("    photo.png    ");
-
-    while()
-    {
-        BeginDrawing();
-        ClearBackground(BackgroundColor);
-        DrawMaze();
-        role.DrawPhoto();
-        EndDrawing();
-    }
-
-    role.UnloadPhoto();
-}
-
-
-*/
